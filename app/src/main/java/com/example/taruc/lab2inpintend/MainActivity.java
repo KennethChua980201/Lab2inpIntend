@@ -15,6 +15,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("Main","onResume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("Main","onPause");
+    }
+
     public void visitTARUC(View v)
     {String uri="http://tarc.edu.my";
      Intent intent= new Intent(Intent.ACTION_VIEW);
@@ -33,11 +45,25 @@ public class MainActivity extends AppCompatActivity {
     public void showMain(View v)
     {Intent intent= new Intent(Intent.ACTION_MAIN);
      startActivity(intent);
+
+        if(intent.resolveActivity(getPackageManager())!=null)
+        {startActivity(intent);}
+        else{
+            //Debug Message
+            Log.d("Implict Intents", "Can't handle this intent!");
+        }
     }
 
     public void showDial(View v)
     {Intent intent=new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "0123456789"));
      startActivity(intent);
+
+        if(intent.resolveActivity(getPackageManager())!=null)
+        {startActivity(intent);}
+        else{
+            //Debug Message
+            Log.d("Implict Intents", "Can't handle this intent!");
+        }
     }
 
     public void showSendTo(View v)
